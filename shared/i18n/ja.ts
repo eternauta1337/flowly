@@ -1383,5 +1383,10 @@ const catalog: Catalog = {
   "The audio file is too large.": "音声ファイルが大きすぎます。",
   "That audio format is not supported.": "この音声形式には対応していません。",
   "The audio file could not be read.": "音声ファイルを読み込めませんでした。",
+  "Dictate": "音声入力",
+  "Stop recording": "録音を停止",
+  "Could not use the microphone: {reason}": "マイクを使用できませんでした: {reason}",
+  "The recording is too long.": "録音が長すぎます。",
+  "Could not transcribe the recording.": "録音を文字起こしできませんでした。",
 };
 export default catalog;

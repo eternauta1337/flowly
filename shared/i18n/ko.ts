@@ -1383,5 +1383,10 @@ const catalog: Catalog = {
   "The audio file is too large.": "오디오 파일이 너무 큽니다.",
   "That audio format is not supported.": "지원하지 않는 오디오 형식입니다.",
   "The audio file could not be read.": "오디오 파일을 읽을 수 없습니다.",
+  "Dictate": "받아쓰기",
+  "Stop recording": "녹음 중지",
+  "Could not use the microphone: {reason}": "마이크를 사용할 수 없습니다: {reason}",
+  "The recording is too long.": "녹음이 너무 깁니다.",
+  "Could not transcribe the recording.": "녹음을 받아쓸 수 없습니다.",
 };
 export default catalog;

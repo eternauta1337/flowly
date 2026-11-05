@@ -1383,5 +1383,10 @@ const catalog: Catalog = {
   "The audio file is too large.": "Аудиофайл слишком большой.",
   "That audio format is not supported.": "Этот аудиоформат не поддерживается.",
   "The audio file could not be read.": "Не удалось прочитать аудиофайл.",
+  "Dictate": "Диктовать",
+  "Stop recording": "Остановить запись",
+  "Could not use the microphone: {reason}": "Не удалось использовать микрофон: {reason}",
+  "The recording is too long.": "Запись слишком длинная.",
+  "Could not transcribe the recording.": "Не удалось расшифровать запись.",
 };
 export default catalog;
