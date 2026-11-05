@@ -11,6 +11,7 @@ import { intentParams, type BoardIntent } from "./client/shortcuts";
 import { deviceLocale, msg, setLocale, t } from "./shared/i18n";
 import { loadCatalog } from "./client/catalog";
 import { perfEarly, perfNow } from "./client/perf";
+import { setHostAudioPlayer } from "./client/session-audio";
 import { i18nCatalog } from "./shared/rpc";
 
 const intentItems: { intent: BoardIntent; title: string; icon: string; keywords: string[] }[] = [
@@ -64,6 +65,7 @@ export default function contribute(client: PluginClientContext) {
   // Command Center entries are registered once, before any setting can be read: they follow the device language.
   const device = deviceLocale();
   setLocale(device);
+  setHostAudioPlayer((source) => client.playAudio(source));
   client.addScreen({
     id: "board",
     title: "Flowly",

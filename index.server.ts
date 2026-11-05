@@ -6,6 +6,8 @@ import { BoardService, dataDirectory, migrateLegacyPluginData, paseoHome } from 
 import { readPaseoVersion } from "./server/paseo-version";
 import { NativeDirectoryPicker, detectNativePicker, listDirectories } from "./server/directories";
 import * as rpc from "./shared/rpc";
+import { readAudio } from "./shared/audio-marker";
+import { readSessionAudio } from "./server/session-audio";
 import { agentHabitsOn, developerSettings, performanceLogOn, performanceSettings, boardViewSettings, ideasSettings, languageSettings, languageSettingsValues, aiLanguageSettings, aiLanguageSettingsValues, deviceLanguageSettings, deviceLanguageValue, modelSettings, onboardingSettings, ideasSettingsValues, statusSettings, statusSettingsValues, wrapupSettings, wrapupSettingsValues, nativeSessionSettings, nativeSessionSettingsValues, featureSettings, featureSettingsValues, telemetrySettings, telemetrySettingsValues } from "./shared/settings";
 import { ToolServer } from "./server/tool-server";
 import { SessionReadStore, SessionReadService, daemonNativeAttention } from "./server/session-reads";
@@ -245,6 +247,7 @@ export default function contribute(host: PluginServerContext) {
   server.handle(rpc.sendQueuedNow, (input, { paseo }) => composer.sendNow(input, paseo));
   const images = new SessionImageService(store);
   server.handle(rpc.sessionImage, (input, { paseo }) => images.read(input, paseo));
+  server.handle(readAudio, (input) => readSessionAudio(input));
   const tails = new SessionTailService(store);
   const archived = new ArchivedSessionsService(store);
   server.handle(rpc.archivedSessions, (input, { paseo }) => archived.list(input.taskId, paseo));

@@ -1377,5 +1377,11 @@ const catalog: Catalog = {
   "Previous day": "Предыдущий день",
   "Next day": "Следующий день",
   "agent {time}": "агент {time}",
+  "Listen": "Слушать",
+  "This client cannot play audio.": "Этот клиент не может воспроизводить аудио.",
+  "The audio file is gone.": "Аудиофайл больше не существует.",
+  "The audio file is too large.": "Аудиофайл слишком большой.",
+  "That audio format is not supported.": "Этот аудиоформат не поддерживается.",
+  "The audio file could not be read.": "Не удалось прочитать аудиофайл.",
 };
 export default catalog;

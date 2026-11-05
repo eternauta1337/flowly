@@ -12,6 +12,8 @@ import { extractImages } from "../shared/images";
 import { SessionImage } from "./session-image";
 import { sentImages } from "./sent-images";
 import { SessionMarkdown } from "./session-content";
+import { SessionAudio } from "./session-audio";
+import { splitAudioMarker } from "../shared/audio-marker";
 import { Collapse } from "./disclosure";
 import { Enter, PulseDot, motionDuration, useMotionPresence, useMotionValue, lerp } from "./motion";
 import { useStableCallback } from "./stable";
@@ -403,10 +405,12 @@ export const TranscriptEntry = memo(function TranscriptEntry({
   agentId: string;
 }) {
   const { colors } = useTheme();
-  const { text, images } = useMemo(
-    () => (entry.author === "You" || entry.author === "Agent" ? extractImages(entry.text) : { text: entry.text, images: [] }),
-    [entry.author, entry.text],
-  );
+  const { text, images, audio } = useMemo(() => {
+    if (entry.author !== "You" && entry.author !== "Agent") return { text: entry.text, images: [], audio: null };
+    // An agent reply's [[audio:…]] marker becomes a Listen button (session-audio.tsx).
+    const split = entry.author === "Agent" ? splitAudioMarker(entry.text) : { text: entry.text, audio: null };
+    return { ...extractImages(split.text), audio: split.audio };
+  }, [entry.author, entry.text]);
   const sent = entry.author === "You" ? sentImages(entry.messageId) : [];
   const pictures = [...images, ...sent.map((src, i) => ({ src, alt: t("Image {n}", { n: i + 1 }) }))].map((image) => (
     // Your own images stay compact beside your message.
@@ -437,6 +441,7 @@ export const TranscriptEntry = memo(function TranscriptEntry({
     return (
       <View accessibilityLabel={t("Agent")} style={{ minWidth: 0, gap: space[2] }}>
         {!!text && <SessionMarkdown text={text} />}
+        {audio && <SessionAudio audio={audio} />}
         {pictures}
       </View>
     );
