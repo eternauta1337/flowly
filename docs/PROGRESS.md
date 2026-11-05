@@ -977,3 +977,7 @@ Phase 2 spec: [PHASE-02-SPEC.md](PHASE-02-SPEC.md). Three current-card tools; au
 - 根因：Paseo 0.13 的 `publishAgentStream` 对 turn_completed/failed/canceled 一律发 `timeline: []`（SDK 类型仍声明该字段，所以编译无报错）。`SummaryService.enqueue` 对空文本直接返回，无错误记录。同一个空数组还影响 `byUser`/`pick`（Agent habits）、记忆线索、workpad 计划、外部会话 insights。
 - 修复：`server/turn-timeline.ts` 在空时读 timeline 最新一页的最后一轮，`agent.turn_ended` 入口统一使用；`agent.turn_ended` 的 `byUser` 在 10-26 起的事件里被记成 false，未回填。
 
+## 2026-11-05 Card session signal opens the latest session (#74)
+
+- [CARD-DISPLAY-SPEC §2.1](CARD-DISPLAY-SPEC.md#21-tapping-the-session-signal): running/unread/count on a card are one tappable target that opens the latest session; the rest of the card keeps opening Details.
+- `client/card.tsx` (`SessionSignals`, `onOpenSession`), `client/board.tsx` (`openCardSession` sets the session entry), one new string in every catalog. No tour copy or tip: it is a shortcut to something the drawer already shows.
