@@ -12,3 +12,8 @@ test("the marker leaves the text and becomes the audio, with or without a label"
   });
   expect(splitAudioMarker("[[audio: /tmp/a/r.mp3 ]]")).toEqual({ text: "", audio: { path: "/tmp/a/r.mp3" } });
 });
+
+test("an example of the marker is not an audio: inside backticks or without an absolute path", () => {
+  expect(splitAudioMarker("Uses the marker `[[audio:…|…]]` in replies.").audio).toBeNull();
+  expect(splitAudioMarker("[[audio:...]]").audio).toBeNull();
+});

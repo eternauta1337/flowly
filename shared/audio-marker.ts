@@ -6,7 +6,9 @@ import { z } from "zod";
 // button through that plugin's transformer, but the side chat reads the raw text (upstream issue #77),
 // so Flowly recognizes the marker itself and reads the file through its own server.
 
-const marker = /\[\[audio:([^\]|]+?)(?:\|([^\]]*))?\]\]/;
+// Only an absolute path, outside backticks: an agent explaining the marker (`[[audio:…]]`) must not get a
+// button that fails because "…" is not an audio file.
+const marker = /(?<!`)\[\[audio:\s*(\/[^\]|]+?)(?:\|([^\]]*))?\]\](?!`)/;
 
 export interface AudioMarker {
   path: string;
